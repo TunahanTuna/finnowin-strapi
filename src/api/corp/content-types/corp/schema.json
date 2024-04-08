@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "corps",
+  "info": {
+    "singularName": "corp",
+    "pluralName": "corps",
+    "displayName": "corp",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "excelFile": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "corpName": {
+      "type": "string",
+      "required": true
+    },
+    "symbolName": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "uzun",
+        "kısa",
+        "banka"
+      ],
+      "default": "uzun"
+    },
+    "props": {
+      "type": "json"
+    }
+  }
+}
