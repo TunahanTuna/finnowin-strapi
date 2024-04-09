@@ -4,7 +4,7 @@
   "info": {
     "singularName": "corp",
     "pluralName": "corps",
-    "displayName": "corp",
+    "displayName": "Corp",
     "description": ""
   },
   "options": {
@@ -16,9 +16,7 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": [
-        "files"
-      ]
+      "allowedTypes": ["files"]
     },
     "corpName": {
       "type": "string",
@@ -30,11 +28,7 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": [
-        "uzun",
-        "kısa",
-        "banka"
-      ],
+      "enum": ["uzun", "kısa", "banka"],
       "default": "uzun"
     },
     "props": {

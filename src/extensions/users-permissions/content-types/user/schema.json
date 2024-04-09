@@ -72,6 +72,16 @@
     "referenceCode": {
       "type": "string",
       "maxLength": 6
+    },
+    "isSub": {
+      "type": "boolean",
+      "default": false
+    },
+    "phoneNumber": {
+      "type": "string",
+      "required": false,
+      "maxLength": 10,
+      "private": false
     }
   }
 }

@@ -1,3 +1,5 @@
+const { type } = require("../../corp/routes/corp");
+
 module.exports = ({ env }) => ({
   async payment(ctx) {
     const Iyzipay = require("iyzipay");
@@ -5,8 +7,36 @@ module.exports = ({ env }) => ({
 
     // Burada şirketlerinizi döndürebilirsiniz
     const id = uuidv4();
-    const { price, cardHolderName, cardNumber, expiry, cvv, registerCard } =
-      ctx.request.body;
+    const basketId = uuidv4();
+
+    const {
+      price,
+      cardHolderName,
+      cardNumber,
+      expiry,
+      cvv,
+      registerCard,
+      username,
+      buyerName,
+      buyerSurname,
+      address,
+      city,
+      zipCode,
+      tckn,
+      gsmNumber,
+      country,
+    } = ctx.request.body;
+    // Fetch user info
+    const user = await strapi.db
+      .query("plugin::users-permissions.user")
+      .findOne({
+        where: { username },
+        populate: { role: true },
+      });
+    if (!user) {
+      return "Kullanıcı bulunamadı";
+    }
+
     const iyzipay = new Iyzipay({
       apiKey: "sandbox-M6mv2qJLkC64w1fQkr79ZEsnWdPtT2vu",
       secretKey: "7VqmbcrxHDVXnhemffqBksnRa6HnCMHc",
@@ -21,7 +51,7 @@ module.exports = ({ env }) => ({
       paidPrice: price,
       currency: Iyzipay.CURRENCY.TRY,
       installment: "1",
-      basketId: "B67832",
+      basketId,
       paymentChannel: Iyzipay.PAYMENT_CHANNEL.WEB,
       paymentGroup: Iyzipay.PAYMENT_GROUP.PRODUCT,
       paymentCard: {
@@ -33,34 +63,31 @@ module.exports = ({ env }) => ({
         registerCard,
       },
       buyer: {
-        id: "BY789",
-        name: "John",
-        surname: "Doe",
-        gsmNumber: "+905350000000",
-        email: "email@email.com",
-        identityNumber: "74300864791",
-        lastLoginDate: "2015-10-05 12:43:35",
-        registrationDate: "2013-04-21 15:12:09",
-        registrationAddress:
-          "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1",
-        ip: "85.34.78.112",
-        city: "Istanbul",
-        country: "Turkey",
-        zipCode: "34732",
+        id: user?.id,
+        name: buyerName,
+        surname: buyerSurname,
+        gsmNumber: "+90" + user?.phoneNumber || "+0000000000000",
+        email: user.email,
+        identityNumber: tckn || "11111111111",
+        registrationAddress: address,
+        // ip: "85.34.78.112",
+        city,
+        country,
+        zipCode: zipCode,
       },
       shippingAddress: {
-        contactName: "Jane Doe",
-        city: "Istanbul",
-        country: "Turkey",
-        address: "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1",
-        zipCode: "34742",
+        contactName: buyerName + " " + buyerSurname,
+        city,
+        country,
+        address,
+        zipCode,
       },
       billingAddress: {
-        contactName: "Jane Doe",
-        city: "Istanbul",
-        country: "Turkey",
-        address: "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1",
-        zipCode: "34742",
+        contactName: buyerName + " " + buyerSurname,
+        city,
+        country,
+        address,
+        zipCode,
       },
       basketItems: [
         {
@@ -73,11 +100,30 @@ module.exports = ({ env }) => ({
         },
       ],
     };
+    // const user = await strapi.entityService.findOne(
+    //   "plugin::users-permissions.user",
+    //   1,
+    //   {
+    //     populate: ["role"],
+    //   }
+    // );
+
+    // Kullanıcıyı bul
+
+    // Kullanıcının rolünü güncelle
 
     return new Promise((resolve, reject) => {
       iyzipay.payment.create(req, async function (err, result) {
         if (err) return reject(err);
-
+        if (result?.status === "success") {
+          const updatedUser = await strapi.db
+            .query("plugin::users-permissions.user")
+            .update({
+              where: { username: user?.username },
+              populate: { role: true },
+              data: { role: { id: 3 }, isSub: true },
+            });
+        }
         resolve(result);
       });
     });
