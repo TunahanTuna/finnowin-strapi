@@ -17,5 +17,22 @@ module.exports = {
         ],
       },
     },
+    {
+      method: "POST",
+      path: "/payment-finish",
+      handler: "payment.paymentFinish",
+      config: {
+        policies: [
+          // point to a registered policy
+
+          // point to a registered policy with some custom configuration
+
+          // pass a policy implementation directly
+          (policyContext, config, { strapi }) => {
+            return true;
+          },
+        ],
+      },
+    },
   ],
 };

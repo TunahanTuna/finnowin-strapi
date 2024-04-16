@@ -1,0 +1,34 @@
+version: "3"
+services:
+  applystrapi-v4:
+    image: mustafatunahantuna/finnowin-strapi:main
+    restart: always
+    container_name: applystrapi
+    ports:
+      - "1338:1337"
+    environment:
+      NODE_ENV: development
+      DATABASE_CLIENT: postgresapply
+      DATABASE_HOST: postgresapply
+      DATABASE_PORT: 5432
+      DATABASE_NAME: postgresapply
+      DATABASE_USERNAME: postgresapply
+      DATABASE_PASSWORD: postgresapply
+    volumes:
+      - ./config:/opt/app/src/config
+      - ./src:/opt/app/src/src
+        # - ./package.json:/opt/package.json
+        # - ./yarn.lock:/opt/yarn.lock
+      - ./public/uploads:/opt/app/src/public/uploads
+  applypostgres:
+    restart: always
+    image: postgres
+    container_name: postgresapply
+    environment:
+      POSTGRES_DB: postgresapply
+      POSTGRES_USER: postgresapply
+      POSTGRES_PASSWORD: postgresapply
+    expose:
+      - 5432
+    volumes:
+      - ./data:/var/lib/postgresql/data

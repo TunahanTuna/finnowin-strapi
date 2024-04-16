@@ -80,8 +80,10 @@
     "phoneNumber": {
       "type": "string",
       "required": false,
-      "maxLength": 10,
-      "private": false
+      "maxLength": 10
+    },
+    "conversationId": {
+      "type": "string"
     }
   }
 }
