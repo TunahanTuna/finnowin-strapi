@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "halka_arzs",
+  "info": {
+    "singularName": "halka-arz",
+    "pluralName": "halka-arzs",
+    "displayName": "Halka Arz"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "symbolName": {
+      "type": "string",
+      "required": true
+    },
+    "corpName": {
+      "type": "string",
+      "required": true
+    },
+    "excelFile": {
+      "allowedTypes": [
+        "files"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "uzun",
+        "kısa",
+        "banka"
+      ],
+      "default": "kısa",
+      "required": false
+    },
+    "props": {
+      "type": "json"
+    }
+  }
+}

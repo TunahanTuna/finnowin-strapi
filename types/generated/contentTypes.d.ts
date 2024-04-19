@@ -390,6 +390,41 @@ export interface ApiCorpCorp extends Schema.CollectionType {
   };
 }
 
+export interface ApiHalkaArzHalkaArz extends Schema.CollectionType {
+  collectionName: 'halka_arzs';
+  info: {
+    singularName: 'halka-arz';
+    pluralName: 'halka-arzs';
+    displayName: 'Halka Arz';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    symbolName: Attribute.String & Attribute.Required;
+    corpName: Attribute.String & Attribute.Required;
+    excelFile: Attribute.Media & Attribute.Required;
+    type: Attribute.Enumeration<['uzun', 'k\u0131sa', 'banka']> &
+      Attribute.DefaultTo<'k\u0131sa'>;
+    props: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::halka-arz.halka-arz',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::halka-arz.halka-arz',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiMainPageMainPage extends Schema.SingleType {
   collectionName: 'main_pages';
   info: {
@@ -899,6 +934,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::corp.corp': ApiCorpCorp;
+      'api::halka-arz.halka-arz': ApiHalkaArzHalkaArz;
       'api::main-page.main-page': ApiMainPageMainPage;
       'api::payment.payment': ApiPaymentPayment;
       'plugin::upload.file': PluginUploadFile;
