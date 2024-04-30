@@ -1,8 +1,14 @@
 const Iyzipay = require("iyzipay");
-const iyzipay = new Iyzipay({
+/*const iyzipay = new Iyzipay({
   apiKey: "mzbTIRjoVOoOcKDZFQ8AYAk8rPDGahP2",
   secretKey: "iE5mxdg5or63SX19CQ8CnxT9xxjidRl9",
   uri: "https://api.iyzipay.com",
+});*/
+
+const iyzipay = new Iyzipay({
+  apiKey: "sandbox-M6mv2qJLkC64w1fQkr79ZEsnWdPtT2vu",
+  secretKey: "7VqmbcrxHDVXnhemffqBksnRa6HnCMHc",
+  uri: "https://sandbox-api.iyzipay.com",
 });
 module.exports = ({ env }) => ({
   async payment(ctx) {
@@ -11,7 +17,6 @@ module.exports = ({ env }) => ({
     // Burada şirketlerinizi döndürebilirsiniz
     const id = uuidv4();
     const basketId = uuidv4();
-
     const {
       price,
       cardHolderName,
@@ -29,6 +34,15 @@ module.exports = ({ env }) => ({
       gsmNumber,
       country,
     } = ctx.request.body;
+    let realize;
+    if (price === "annual") {
+      realize = "828";
+    } else if (price === "monthly") {
+      realize = "99";
+    } else {
+      realize = "10000";
+    }
+
     // Fetch user info
     const user = await strapi.db
       .query("plugin::users-permissions.user")
@@ -44,8 +58,8 @@ module.exports = ({ env }) => ({
     var req = {
       locale: Iyzipay.LOCALE.TR,
       conversationId: id,
-      price: price,
-      paidPrice: price,
+      price: realize,
+      paidPrice: realize,
       currency: Iyzipay.CURRENCY.TRY,
       installment: "1",
       basketId,
@@ -92,7 +106,7 @@ module.exports = ({ env }) => ({
           name: "Finnowin Lisans",
           category1: "Finance",
           itemType: Iyzipay.BASKET_ITEM_TYPE.VIRTUAL,
-          price: price,
+          price: realize,
         },
       ],
       callbackUrl: "http://localhost:1338/api/payment-finish",

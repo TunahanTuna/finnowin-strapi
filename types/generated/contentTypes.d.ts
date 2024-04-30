@@ -362,131 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiCorpCorp extends Schema.CollectionType {
-  collectionName: 'corps';
-  info: {
-    singularName: 'corp';
-    pluralName: 'corps';
-    displayName: 'Corp';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    excelFile: Attribute.Media & Attribute.Required;
-    corpName: Attribute.String & Attribute.Required;
-    symbolName: Attribute.String & Attribute.Required;
-    type: Attribute.Enumeration<['uzun', 'k\u0131sa', 'banka']> &
-      Attribute.DefaultTo<'uzun'>;
-    props: Attribute.JSON;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::corp.corp', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::corp.corp', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface ApiHalkaArzHalkaArz extends Schema.CollectionType {
-  collectionName: 'halka_arzs';
-  info: {
-    singularName: 'halka-arz';
-    pluralName: 'halka-arzs';
-    displayName: 'Halka Arz';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    symbolName: Attribute.String & Attribute.Required;
-    corpName: Attribute.String & Attribute.Required;
-    excelFile: Attribute.Media & Attribute.Required;
-    type: Attribute.Enumeration<['uzun', 'k\u0131sa', 'banka']> &
-      Attribute.DefaultTo<'k\u0131sa'>;
-    props: Attribute.JSON;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::halka-arz.halka-arz',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::halka-arz.halka-arz',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiMainPageMainPage extends Schema.SingleType {
-  collectionName: 'main_pages';
-  info: {
-    singularName: 'main-page';
-    pluralName: 'main-pages';
-    displayName: 'Main Page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    excel: Attribute.Media;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::main-page.main-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::main-page.main-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiPaymentPayment extends Schema.CollectionType {
-  collectionName: 'payment';
-  info: {
-    singularName: 'payment';
-    pluralName: 'payments';
-    displayName: 'Payment';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    sendData: Attribute.String & Attribute.Required;
-    resultData: Attribute.String & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::payment.payment',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::payment.payment',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -923,6 +798,131 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiCorpCorp extends Schema.CollectionType {
+  collectionName: 'corps';
+  info: {
+    singularName: 'corp';
+    pluralName: 'corps';
+    displayName: 'Corp';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    excelFile: Attribute.Media & Attribute.Required;
+    corpName: Attribute.String & Attribute.Required;
+    symbolName: Attribute.String & Attribute.Required;
+    type: Attribute.Enumeration<['uzun', 'k\u0131sa', 'banka']> &
+      Attribute.DefaultTo<'uzun'>;
+    props: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::corp.corp', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::corp.corp', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHalkaArzHalkaArz extends Schema.CollectionType {
+  collectionName: 'halka_arzs';
+  info: {
+    singularName: 'halka-arz';
+    pluralName: 'halka-arzs';
+    displayName: 'Halka Arz';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    symbolName: Attribute.String & Attribute.Required;
+    corpName: Attribute.String & Attribute.Required;
+    excelFile: Attribute.Media & Attribute.Required;
+    type: Attribute.Enumeration<['uzun', 'k\u0131sa', 'banka']> &
+      Attribute.DefaultTo<'k\u0131sa'>;
+    props: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::halka-arz.halka-arz',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::halka-arz.halka-arz',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMainPageMainPage extends Schema.SingleType {
+  collectionName: 'main_pages';
+  info: {
+    singularName: 'main-page';
+    pluralName: 'main-pages';
+    displayName: 'Main Page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    excel: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::main-page.main-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::main-page.main-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPaymentPayment extends Schema.CollectionType {
+  collectionName: 'payment';
+  info: {
+    singularName: 'payment';
+    pluralName: 'payments';
+    displayName: 'Payment';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    sendData: Attribute.String & Attribute.Required;
+    resultData: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::payment.payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::payment.payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -933,10 +933,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::corp.corp': ApiCorpCorp;
-      'api::halka-arz.halka-arz': ApiHalkaArzHalkaArz;
-      'api::main-page.main-page': ApiMainPageMainPage;
-      'api::payment.payment': ApiPaymentPayment;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -945,6 +941,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::corp.corp': ApiCorpCorp;
+      'api::halka-arz.halka-arz': ApiHalkaArzHalkaArz;
+      'api::main-page.main-page': ApiMainPageMainPage;
+      'api::payment.payment': ApiPaymentPayment;
     }
   }
 }
